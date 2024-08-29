@@ -1,26 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import axios from 'axios';
-import '../css/banner.css'; // Import the custom CSS file
+"use client";
+import React, { useEffect, useState } from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import axios from "axios";
+import "../css/banner.css";
 
-export default function Banner() {
-  const [images, setImages] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [categories, setCategories] = useState([]);
+// Define types for the product and state
+interface Product {
+  image: string;
+  title: string;
+  price: number;
+  category: string;
+}
+
+export default function Banner(): JSX.Element {
+  const [images, setImages] = useState<Product[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
     // Fetch product categories from the API
-    axios.get('https://fakestoreapi.com/products/categories')
-      .then(response => {
-        setCategories(['all', ...response.data]); // Add 'all' as the default category
+    axios
+      .get<string[]>("https://fakestoreapi.com/products/categories")
+      .then((response) => {
+        setCategories(["all", ...response.data]); // Add 'all' as the default category
       })
-      .catch(error => console.error('Error fetching categories:', error));
+      .catch((error) => console.error("Error fetching categories:", error));
 
     // Fetch product data from the API
-    axios.get('https://fakestoreapi.com/products')
-      .then(response => {
-        const imageUrls = response.data.map(product => ({
+    axios
+      .get<Product[]>("https://fakestoreapi.com/products")
+      .then((response) => {
+        const imageUrls: Product[] = response.data.map((product) => ({
           image: product.image,
           title: product.title,
           price: product.price,
@@ -28,12 +39,13 @@ export default function Banner() {
         }));
         setImages(imageUrls);
       })
-      .catch(error => console.error('Error fetching data:', error));
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const filteredImages = selectedCategory === 'all'
-    ? images
-    : images.filter(image => image.category === selectedCategory);
+  const filteredImages: Product[] =
+    selectedCategory === "all"
+      ? images
+      : images.filter((image) => image.category === selectedCategory);
 
   return (
     <div className="banner-carousel my-8">
@@ -43,7 +55,11 @@ export default function Banner() {
           <button
             key={index}
             onClick={() => setSelectedCategory(category)}
-            className={`mx-2 px-4 py-2 rounded-full font-semibold transition-colors ${selectedCategory === category ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+            className={`mx-2 px-4 py-2 rounded-full font-semibold transition-colors ${
+              selectedCategory === category
+                ? "bg-orange-500 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
           >
             {category}
           </button>
@@ -86,7 +102,7 @@ export default function Banner() {
           <button
             type="button"
             onClick={onClickHandler}
-            className={`carousel-indicator ${isSelected ? 'active' : ''}`}
+            className={`carousel-indicator ${isSelected ? "active" : ""}`}
           />
         )}
       >
@@ -94,28 +110,28 @@ export default function Banner() {
           <div
             key={index}
             className="relative"
-            style={{ height: '500px', overflow: 'hidden' }}
+            style={{ height: "500px", overflow: "hidden" }}
           >
             <img
               src={item.image}
               alt={`Banner ${index + 1}`}
               style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
               }}
             />
             <div
               style={{
-                position: 'absolute',
-                bottom: '20px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                textAlign: 'center',
-                padding: '10px',
-                borderRadius: '10px',
-                width: '80%', // Adjust width as needed
+                position: "absolute",
+                bottom: "20px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                textAlign: "center",
+                padding: "10px",
+                borderRadius: "10px",
+                width: "80%", // Adjust width as needed
               }}
             >
               <h2 className="text-3xl font-bold mb-2">Jozibali taklif</h2>

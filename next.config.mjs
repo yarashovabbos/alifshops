@@ -5,7 +5,7 @@ const nextConfig = {
         domains: ['fakestoreapi.com'
             
 
-        ], // Tashqi rasm yuklashga ruxsat berilgan domenlar ro'yxati
+        ], 
       },
 };
 

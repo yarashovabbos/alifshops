@@ -1,17 +1,16 @@
-
-import Image from 'next/image'
-import { FiHeart } from 'react-icons/fi'
+import Image from 'next/image';
+import { FiHeart } from 'react-icons/fi';
 
 interface ProductCardProps {
   product: {
-    id: number
-    title: string
-    price: number
-    image: string
-  }
+    id: number;
+    title: string;
+    price: number;
+    image: string;
+  };
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps): JSX.Element {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="relative h-48">
@@ -33,5 +32,5 @@ export default function ProductCard({ product }: ProductCardProps) {
         </button>
       </div>
     </div>
-  )
+  );
 }

@@ -1,5 +1,6 @@
+import React from 'react';
 
-export default function Footer() {
+export default function Footer(): JSX.Element {
   return (
     <footer className="bg-gray-800 text-white py-8">
       <div className="container mx-auto px-4">
@@ -39,5 +40,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
